@@ -122,4 +122,15 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-module.exports = { userSignUp, usersSignIn, forgotPassword };
+const userLogout = async (req, res) => {
+  try {
+    res.cookie("userToken", null, {
+      expires: new Date(Date.now()),
+    });
+    res.status(200).json({ message: "User logged out successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { userSignUp, usersSignIn, forgotPassword, userLogout };

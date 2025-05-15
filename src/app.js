@@ -3,7 +3,8 @@ require("dotenv").config();
 const ConnectDB = require("./config/database");
 const userRouter = require("./routers/userRouter");
 const cookieParser = require("cookie-parser");
-
+const profileRouter = require("./routers/profileRouter");
+const connectionRouter = require("./routers/connectionRouter");
 
 const app = express();
 
@@ -12,6 +13,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api", userRouter);
+app.use("/api", profileRouter);
+app.use("/api", connectionRouter);
 
 const startServer = async () => {
   try {

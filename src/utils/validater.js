@@ -15,8 +15,7 @@ const ValidSignUp = (req) => {
     githubLink,
     linkedinLink,
   } = req.body;
-   console.log(age)
-
+    
   const allowedGender = ["male", "female", "others"];
   const allowedRoles = [
     "frontend developer",
