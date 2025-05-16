@@ -4,6 +4,8 @@ const {
   connectionRequest,
   connectionReviewRequest,
   connectionInterestedRequests,
+  connectionReceivedRequests,
+  feedConnection,
 } = require("../controllers/connectionRequest");
 
 const connectionRouter = express.Router();
@@ -23,4 +25,12 @@ connectionRouter.get(
   userAuth,
   connectionInterestedRequests
 );
+
+connectionRouter.get(
+  "/request/received/connection/all",
+  userAuth,
+  connectionReceivedRequests
+);
+
+connectionRouter.get("/feeds", userAuth, feedConnection);
 module.exports = connectionRouter;
