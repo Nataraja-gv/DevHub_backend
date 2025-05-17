@@ -1,5 +1,5 @@
 const UserModel = require("../models/userModel");
-
+const validator = require("validator")
 const userProfile = async (req, res) => {
   try {
     const user = req.user;
