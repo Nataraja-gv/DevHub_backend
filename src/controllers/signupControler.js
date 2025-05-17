@@ -6,6 +6,7 @@ const validator = require("validator");
 const userSignUp = async (req, res) => {
   try {
     ValidSignUp(req);
+     
     const {
       userName,
       email,
@@ -70,12 +71,12 @@ const usersSignIn = async (req, res) => {
 
     const existingUser = await UserModel.findOne({ email });
     if (!existingUser) {
-      return res.status(400).json({ message: "user not found" });
+      return res.status(400).json({ message: "Invalid Credential" });
     }
 
     const verifyPassword = await existingUser.VerifyPassword(password);
     if (!verifyPassword) {
-      return res.status(400).json({ message: "InValid Credential" });
+      return res.status(400).json({ message: "Invalid Credential" });
     }
 
     const usertoken = await existingUser.GetToken();
