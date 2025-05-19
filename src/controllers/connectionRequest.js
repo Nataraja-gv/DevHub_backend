@@ -127,7 +127,7 @@ const connectionReceivedRequests = async (req, res) => {
 const feedConnection = async (req, res) => {
   try {
     const loggedUser = req.user;
-    let limit = parseInt(req.query.limit || 15);
+    let limit = parseInt(req.query.limit || 5);
     const page = parseInt(req.query.page || 1);
     limit > 15 ? 15 : limit;
 
@@ -142,6 +142,12 @@ const feedConnection = async (req, res) => {
       hideConnectionFeeds.add(req.toUserId.toString());
       hideConnectionFeeds.add(req.fromUserId.toString());
     });
+    const TotalsFeeds = await UserModel.find({
+      $and: [
+        { _id: { $nin: Array.from(hideConnectionFeeds) } },
+        { _id: { $ne: loggedUser._id } },
+      ],
+    });
 
     const remainingFeeds = await UserModel.find({
       $and: [
@@ -149,11 +155,18 @@ const feedConnection = async (req, res) => {
         { _id: { $ne: loggedUser._id } },
       ],
     })
+      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
+    const totalFeeds = TotalsFeeds?.length;
+    const totalPages = Math.ceil(totalFeeds / limit);
     res.status(200).json({
       message: `feeds`,
       data: remainingFeeds,
+      totalFeeds,
+      totalPages,
+      currectPage: page,
+      recordPerPage: limit,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
