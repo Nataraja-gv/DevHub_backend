@@ -18,9 +18,9 @@ app.use(
   })
 );
 
-app.use("/api", userRouter);
-app.use("/api", profileRouter);
-app.use("/api", connectionRouter);
+app.use("/", userRouter);
+app.use("/", profileRouter);
+app.use("/", connectionRouter);
 
 const startServer = async () => {
   try {
