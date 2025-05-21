@@ -19,5 +19,4 @@ userRouter.post("/auth/user/signin", usersSignIn);
 userRouter.patch("/auth/user/forgotpassword", forgotPassword);
 
 
-
 module.exports = userRouter;
