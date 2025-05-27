@@ -5,7 +5,8 @@ const userRouter = require("./routers/userRouter");
 const cookieParser = require("cookie-parser");
 const profileRouter = require("./routers/profileRouter");
 const connectionRouter = require("./routers/connectionRouter");
-var cors = require('cors')
+var cors = require("cors");
+const { razorPayRouter } = require("./routers/razorPayRouter");
 const app = express();
 
 const PORT = process.env.PORT;
@@ -18,10 +19,10 @@ app.use(
   })
 );
 
-
 app.use("/", userRouter);
 app.use("/", profileRouter);
 app.use("/", connectionRouter);
+app.use("/", razorPayRouter);
 
 const startServer = async () => {
   try {
